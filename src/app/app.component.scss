@@ -8,6 +8,7 @@
   border-top: 1px solid #798a69;
   border-bottom: 1px solid #798a69;
 }
+
 .accordion__header:hover {
   background: #eeeadc;
 }
@@ -17,9 +18,15 @@
   margin: 0 0 20px 0;
 }
 
-.input {
+.form__input {
   width: 100%;
   margin: 0 0 5px 0;
+}
+
+.form__error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .form__payment {
