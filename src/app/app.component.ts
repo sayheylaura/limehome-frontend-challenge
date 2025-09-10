@@ -1,6 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { addClass, hasClass, removeClass } from './utils/toggle-class/dom';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +12,40 @@ export class AppComponent {
     this.elementRef = elementRef;
   }
 
-  onAccordionHeaderClick(event: Event) {
-    const target: HTMLElement = event.target as HTMLElement;
-    const nextSibling = target.nextElementSibling as HTMLElement;
-    if (hasClass('hidden', nextSibling)) {
-      removeClass('hidden', nextSibling);
-    } else {
-      addClass('hidden', nextSibling);
+  // Accordion state management
+  personalInfoExpanded = signal(true);
+  addressExpanded = signal(true);
+  paymentDetailsExpanded = signal(true);
+
+  onAccordionToggle(
+    section: 'personalInfo' | 'address' | 'paymentDetails',
+    event?: Event
+  ) {
+    // Handle keyboard events
+    if (event && event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return; // Ignore other keys
+      }
+      event.preventDefault();
     }
-    return false;
+
+    this.toggleAccordion(section);
+  }
+
+  private toggleAccordion(
+    section: 'personalInfo' | 'address' | 'paymentDetails'
+  ) {
+    switch (section) {
+      case 'personalInfo':
+        this.personalInfoExpanded.update((expanded) => !expanded);
+        break;
+      case 'address':
+        this.addressExpanded.update((expanded) => !expanded);
+        break;
+      case 'paymentDetails':
+        this.paymentDetailsExpanded.update((expanded) => !expanded);
+        break;
+    }
   }
 
   form = new FormGroup({

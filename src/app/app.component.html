@@ -1,222 +1,327 @@
 <div class="wrapper">
-  <h2>Your checkin data</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <h2 data-testid="form-title">Your checkin data</h2>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="form"
+    data-testid="checkin-form"
+  >
     <div class="accordion">
-      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
-        <span class="accordion__title">Personal information</span>
+      <h3 class="accordion__heading">
+        <button
+          class="accordion__button"
+          type="button"
+          [attr.aria-expanded]="personalInfoExpanded()"
+          aria-controls="personal-info-content"
+          (click)="onAccordionToggle('personalInfo', $event)"
+          (keydown)="onAccordionToggle('personalInfo', $event)"
+          data-testid="personal-info-accordion-button"
+        >
+          Personal information
+          <span
+            class="accordion__chevron"
+            [class.accordion__chevron--expanded]="personalInfoExpanded()"
+          >
+            <img
+              src="assets/arrow-down.svg"
+              alt=""
+              class="accordion__chevron-icon"
+            />
+          </span>
+        </button>
       </h3>
-      <div class="accordion__content" formGroupName="personalInfo">
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="firstName" class="form__label">First Name *</label>
-            <input
-              id="firstName"
-              type="text"
-              formControlName="firstName"
-              class="form__input"
-            />
-            @if (isFieldInvalid('personalInfo.firstName')) {
-            <p class="form__error">
-              {{ getFieldError("personalInfo.firstName") }}
-            </p>
-            }
+      <div
+        id="personal-info-content"
+        class="accordion__content"
+        [class.accordion__content--expanded]="personalInfoExpanded()"
+        formGroupName="personalInfo"
+      >
+        <div class="accordion__content-wrapper">
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="firstName" class="form__label">First Name *</label>
+              <input
+                id="firstName"
+                type="text"
+                formControlName="firstName"
+                class="form__input"
+                data-testid="first-name-input"
+              />
+              @if (isFieldInvalid('personalInfo.firstName')) {
+              <p class="form__error" data-testid="first-name-error">
+                {{ getFieldError("personalInfo.firstName") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="lastName" class="form__label">Last Name *</label>
+              <input
+                id="lastName"
+                type="text"
+                formControlName="lastName"
+                class="form__input"
+                data-testid="last-name-input"
+              />
+              @if (isFieldInvalid('personalInfo.lastName')) {
+              <p class="form__error" data-testid="last-name-error">
+                {{ getFieldError("personalInfo.lastName") }}
+              </p>
+              }
+            </div>
           </div>
-          <div class="form__element">
-            <label for="lastName" class="form__label">Last Name *</label>
-            <input
-              id="lastName"
-              type="text"
-              formControlName="lastName"
-              class="form__input"
-            />
-            @if (isFieldInvalid('personalInfo.lastName')) {
-            <p class="form__error">
-              {{ getFieldError("personalInfo.lastName") }}
-            </p>
-            }
-          </div>
-        </div>
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="email" class="form__label">E-mail *</label>
-            <input
-              id="email"
-              type="email"
-              formControlName="email"
-              class="form__input"
-              placeholder="example@email.com"
-            />
-            @if (isFieldInvalid('personalInfo.email')) {
-            <p class="form__error">
-              {{ getFieldError("personalInfo.email") }}
-            </p>
-            }
-          </div>
-          <div class="form__element">
-            <label for="phoneNumber" class="form__label">Phone number *</label>
-            <input
-              id="phoneNumber"
-              type="tel"
-              formControlName="phoneNumber"
-              class="form__input"
-              placeholder="+49 234 567 8900"
-            />
-            @if (isFieldInvalid('personalInfo.phoneNumber')) {
-            <p class="form__error">
-              {{ getFieldError("personalInfo.phoneNumber") }}
-            </p>
-            }
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="email" class="form__label">E-mail *</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="form__input"
+                placeholder="example@email.com"
+                data-testid="email-input"
+              />
+              @if (isFieldInvalid('personalInfo.email')) {
+              <p class="form__error" data-testid="email-error">
+                {{ getFieldError("personalInfo.email") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="phoneNumber" class="form__label"
+                >Phone number *</label
+              >
+              <input
+                id="phoneNumber"
+                type="tel"
+                formControlName="phoneNumber"
+                class="form__input"
+                placeholder="+49 234 567 8900"
+                data-testid="phone-number-input"
+              />
+              @if (isFieldInvalid('personalInfo.phoneNumber')) {
+              <p class="form__error" data-testid="phone-number-error">
+                {{ getFieldError("personalInfo.phoneNumber") }}
+              </p>
+              }
+            </div>
           </div>
         </div>
       </div>
 
-      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
-        <span class="accordion__title">Address</span>
+      <h3 class="accordion__heading">
+        <button
+          class="accordion__button"
+          type="button"
+          [attr.aria-expanded]="addressExpanded()"
+          aria-controls="address-content"
+          (click)="onAccordionToggle('address', $event)"
+          (keydown)="onAccordionToggle('address', $event)"
+          data-testid="address-accordion-button"
+        >
+          Address
+          <span
+            class="accordion__chevron"
+            [class.accordion__chevron--expanded]="addressExpanded()"
+          >
+            <img
+              src="assets/arrow-down.svg"
+              alt=""
+              class="accordion__chevron-icon"
+            />
+          </span>
+        </button>
       </h3>
-      <div class="accordion__content" formGroupName="address">
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="street" class="form__label">Street *</label>
-            <input
-              id="street"
-              type="text"
-              formControlName="street"
-              class="form__input"
-            />
-            @if (isFieldInvalid('address.street')) {
-            <p class="form__error">{{ getFieldError("address.street") }}</p>
-            }
+      <div
+        id="address-content"
+        class="accordion__content"
+        [class.accordion__content--expanded]="addressExpanded()"
+        formGroupName="address"
+      >
+        <div class="accordion__content-wrapper">
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="street" class="form__label">Street *</label>
+              <input
+                id="street"
+                type="text"
+                formControlName="street"
+                class="form__input"
+                data-testid="street-input"
+              />
+              @if (isFieldInvalid('address.street')) {
+              <p class="form__error" data-testid="street-error">
+                {{ getFieldError("address.street") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="houseNumber" class="form__label">House Nr. *</label>
+              <input
+                id="houseNumber"
+                type="text"
+                formControlName="houseNumber"
+                class="form__input"
+                placeholder="123"
+                data-testid="house-number-input"
+              />
+              @if (isFieldInvalid('address.houseNumber')) {
+              <p class="form__error" data-testid="house-number-error">
+                {{ getFieldError("address.houseNumber") }}
+              </p>
+              }
+            </div>
           </div>
-          <div class="form__element">
-            <label for="houseNumber" class="form__label">House Nr. *</label>
-            <input
-              id="houseNumber"
-              type="text"
-              formControlName="houseNumber"
-              class="form__input"
-              placeholder="123"
-            />
-            @if (isFieldInvalid('address.houseNumber')) {
-            <p class="form__error">
-              {{ getFieldError("address.houseNumber") }}
-            </p>
-            }
-          </div>
-        </div>
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="city" class="form__label">City *</label>
-            <input
-              id="city"
-              type="text"
-              formControlName="city"
-              class="form__input"
-            />
-            @if (isFieldInvalid('address.city')) {
-            <p class="form__error">{{ getFieldError("address.city") }}</p>
-            }
-          </div>
-          <div class="form__element">
-            <label for="zipCode" class="form__label">Zip Code *</label>
-            <input
-              id="zipCode"
-              type="text"
-              formControlName="zipCode"
-              class="form__input"
-              placeholder="12345 or 12345-6789"
-            />
-            @if (isFieldInvalid('address.zipCode')) {
-            <p class="form__error">
-              {{ getFieldError("address.zipCode") }}
-            </p>
-            }
-          </div>
-          <div class="form__element">
-            <label for="country" class="form__label">Country *</label>
-            <input
-              id="country"
-              type="text"
-              formControlName="country"
-              class="form__input"
-            />
-            @if (isFieldInvalid('address.country')) {
-            <p class="form__error">
-              {{ getFieldError("address.country") }}
-            </p>
-            }
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="city" class="form__label">City *</label>
+              <input
+                id="city"
+                type="text"
+                formControlName="city"
+                class="form__input"
+                data-testid="city-input"
+              />
+              @if (isFieldInvalid('address.city')) {
+              <p class="form__error" data-testid="city-error">
+                {{ getFieldError("address.city") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="zipCode" class="form__label">Zip Code *</label>
+              <input
+                id="zipCode"
+                type="text"
+                formControlName="zipCode"
+                class="form__input"
+                placeholder="12345 or 12345-6789"
+                data-testid="zip-code-input"
+              />
+              @if (isFieldInvalid('address.zipCode')) {
+              <p class="form__error" data-testid="zip-code-error">
+                {{ getFieldError("address.zipCode") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="country" class="form__label">Country *</label>
+              <input
+                id="country"
+                type="text"
+                formControlName="country"
+                class="form__input"
+                data-testid="country-input"
+              />
+              @if (isFieldInvalid('address.country')) {
+              <p class="form__error" data-testid="country-error">
+                {{ getFieldError("address.country") }}
+              </p>
+              }
+            </div>
           </div>
         </div>
       </div>
 
-      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
-        <span class="accordion__title">Payment details</span>
+      <h3 class="accordion__heading">
+        <button
+          class="accordion__button"
+          type="button"
+          [attr.aria-expanded]="paymentDetailsExpanded()"
+          aria-controls="payment-details-content"
+          (click)="onAccordionToggle('paymentDetails', $event)"
+          (keydown)="onAccordionToggle('paymentDetails', $event)"
+          data-testid="payment-details-accordion-button"
+        >
+          Payment details
+          <span
+            class="accordion__chevron"
+            [class.accordion__chevron--expanded]="paymentDetailsExpanded()"
+          >
+            <img
+              src="assets/arrow-down.svg"
+              alt=""
+              class="accordion__chevron-icon"
+            />
+          </span>
+        </button>
       </h3>
-      <div class="accordion__content" formGroupName="paymentDetails">
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="creditCardNumber" class="form__label"
-              >Credit Card Number *</label
-            >
-            <input
-              id="creditCardNumber"
-              type="text"
-              formControlName="creditCardNumber"
-              class="form__input"
-              placeholder="1234 5678 9012 3456"
-            />
-            @if (isFieldInvalid('paymentDetails.creditCardNumber')) {
-            <p class="form__error">
-              {{ getFieldError("paymentDetails.creditCardNumber") }}
-            </p>
-            }
+      <div
+        id="payment-details-content"
+        class="accordion__content"
+        [class.accordion__content--expanded]="paymentDetailsExpanded()"
+        formGroupName="paymentDetails"
+      >
+        <div class="accordion__content-wrapper">
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="creditCardNumber" class="form__label"
+                >Credit Card Number *</label
+              >
+              <input
+                id="creditCardNumber"
+                type="text"
+                formControlName="creditCardNumber"
+                class="form__input"
+                placeholder="1234 5678 9012 3456"
+                data-testid="credit-card-number-input"
+              />
+              @if (isFieldInvalid('paymentDetails.creditCardNumber')) {
+              <p class="form__error" data-testid="credit-card-number-error">
+                {{ getFieldError("paymentDetails.creditCardNumber") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="expiryDate" class="form__label">Expiry Date *</label>
+              <input
+                id="expiryDate"
+                type="text"
+                formControlName="expiryDate"
+                class="form__input"
+                placeholder="MM/YY"
+                data-testid="expiry-date-input"
+              />
+              @if (isFieldInvalid('paymentDetails.expiryDate')) {
+              <p class="form__error" data-testid="expiry-date-error">
+                {{ getFieldError("paymentDetails.expiryDate") }}
+              </p>
+              }
+            </div>
           </div>
-          <div class="form__element">
-            <label for="expiryDate" class="form__label">Expiry Date *</label>
-            <input
-              id="expiryDate"
-              type="text"
-              formControlName="expiryDate"
-              class="form__input"
-              placeholder="MM/YY"
-            />
-            @if (isFieldInvalid('paymentDetails.expiryDate')) {
-            <p class="form__error">
-              {{ getFieldError("paymentDetails.expiryDate") }}
-            </p>
-            }
-          </div>
-        </div>
-        <div class="form__elements">
-          <div class="form__element">
-            <label for="cvv" class="form__label">CCV *</label>
-            <input
-              id="cvv"
-              type="text"
-              formControlName="cvv"
-              class="form__input"
-              placeholder="123"
-            />
-            @if (isFieldInvalid('paymentDetails.cvv')) {
-            <p class="form__error">
-              {{ getFieldError("paymentDetails.cvv") }}
-            </p>
-            }
-          </div>
-          <div class="form__element">
-            <label for="cardHolderName" class="form__label"
-              >Card Holder Name *</label
-            >
-            <input
-              id="cardHolderName"
-              type="text"
-              formControlName="cardHolderName"
-              class="form__input"
-            />
-            @if (isFieldInvalid('paymentDetails.cardHolderName')) {
-            <p class="form__error">
-              {{ getFieldError("paymentDetails.cardHolderName") }}
-            </p>
-            }
+          <div class="form__elements">
+            <div class="form__element">
+              <label for="cvv" class="form__label">CCV *</label>
+              <input
+                id="cvv"
+                type="text"
+                formControlName="cvv"
+                class="form__input"
+                placeholder="123"
+                data-testid="cvv-input"
+              />
+              @if (isFieldInvalid('paymentDetails.cvv')) {
+              <p class="form__error" data-testid="cvv-error">
+                {{ getFieldError("paymentDetails.cvv") }}
+              </p>
+              }
+            </div>
+            <div class="form__element">
+              <label for="cardHolderName" class="form__label"
+                >Card Holder Name *</label
+              >
+              <input
+                id="cardHolderName"
+                type="text"
+                formControlName="cardHolderName"
+                class="form__input"
+                data-testid="card-holder-name-input"
+              />
+              @if (isFieldInvalid('paymentDetails.cardHolderName')) {
+              <p class="form__error" data-testid="card-holder-name-error">
+                {{ getFieldError("paymentDetails.cardHolderName") }}
+              </p>
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -227,7 +332,7 @@
       the back of the card, and the holder name.
     </span>
     <div>
-      <button type="submit">Save</button>
+      <button type="submit" data-testid="submit-button">Save</button>
     </div>
   </form>
 </div>
