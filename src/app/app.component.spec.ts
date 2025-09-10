@@ -538,5 +538,169 @@ describe('AppComponent', () => {
       expect(submitButton).toBeTruthy();
       expect(submitButton.textContent.trim()).toBe('Save');
     });
+
+    describe('ARIA-describedby and aria-invalid attributes', () => {
+      it('should not have aria-describedby or aria-invalid when fields are valid', () => {
+        const firstNameInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-input"]'
+        );
+        const emailInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="email-input"]'
+        );
+
+        expect(firstNameInput.getAttribute('aria-describedby')).toBeNull();
+        expect(firstNameInput.getAttribute('aria-invalid')).toBe('false');
+        expect(emailInput.getAttribute('aria-describedby')).toBeNull();
+        expect(emailInput.getAttribute('aria-invalid')).toBe('false');
+      });
+
+      it('should add aria-describedby and aria-invalid when fields have validation errors', () => {
+        const firstNameControl = component.form.get('personalInfo.firstName');
+        const emailControl = component.form.get('personalInfo.email');
+
+        // Trigger validation errors
+        firstNameControl?.markAsTouched();
+        emailControl?.setValue('invalid-email');
+        emailControl?.markAsTouched();
+        fixture.detectChanges();
+
+        const firstNameInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-input"]'
+        );
+        const emailInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="email-input"]'
+        );
+        const firstNameError = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-error"]'
+        );
+        const emailError = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="email-error"]'
+        );
+
+        // Check aria-describedby associations
+        expect(firstNameInput.getAttribute('aria-describedby')).toBe(
+          'firstName-error'
+        );
+        expect(emailInput.getAttribute('aria-describedby')).toBe('email-error');
+
+        // Check aria-invalid attributes
+        expect(firstNameInput.getAttribute('aria-invalid')).toBe('true');
+        expect(emailInput.getAttribute('aria-invalid')).toBe('true');
+
+        // Check error message IDs match aria-describedby
+        expect(firstNameError.getAttribute('id')).toBe('firstName-error');
+        expect(emailError.getAttribute('id')).toBe('email-error');
+      });
+
+      it('should remove aria-describedby when validation errors are fixed', () => {
+        const firstNameControl = component.form.get('personalInfo.firstName');
+
+        // Trigger validation error
+        firstNameControl?.markAsTouched();
+        fixture.detectChanges();
+
+        const firstNameInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-input"]'
+        );
+        expect(firstNameInput.getAttribute('aria-describedby')).toBe(
+          'firstName-error'
+        );
+        expect(firstNameInput.getAttribute('aria-invalid')).toBe('true');
+
+        // Fix the validation error
+        firstNameControl?.setValue('John');
+        fixture.detectChanges();
+
+        expect(firstNameInput.getAttribute('aria-describedby')).toBeNull();
+        expect(firstNameInput.getAttribute('aria-invalid')).toBe('false');
+      });
+
+      it('should have proper aria-describedby for all form fields when invalid', () => {
+        // Mark all fields as touched to trigger validation
+        component.form.markAllAsTouched();
+        fixture.detectChanges();
+
+        const fieldMappings = [
+          {
+            input: 'first-name-input',
+            error: 'first-name-error',
+            id: 'firstName-error',
+          },
+          {
+            input: 'last-name-input',
+            error: 'last-name-error',
+            id: 'lastName-error',
+          },
+          { input: 'email-input', error: 'email-error', id: 'email-error' },
+          {
+            input: 'phone-number-input',
+            error: 'phone-number-error',
+            id: 'phoneNumber-error',
+          },
+          { input: 'street-input', error: 'street-error', id: 'street-error' },
+          {
+            input: 'house-number-input',
+            error: 'house-number-error',
+            id: 'houseNumber-error',
+          },
+          { input: 'city-input', error: 'city-error', id: 'city-error' },
+          {
+            input: 'zip-code-input',
+            error: 'zip-code-error',
+            id: 'zipCode-error',
+          },
+          {
+            input: 'country-input',
+            error: 'country-error',
+            id: 'country-error',
+          },
+          {
+            input: 'credit-card-number-input',
+            error: 'credit-card-number-error',
+            id: 'creditCardNumber-error',
+          },
+          {
+            input: 'expiry-date-input',
+            error: 'expiry-date-error',
+            id: 'expiryDate-error',
+          },
+          { input: 'cvv-input', error: 'cvv-error', id: 'cvv-error' },
+          {
+            input: 'card-holder-name-input',
+            error: 'card-holder-name-error',
+            id: 'cardHolderName-error',
+          },
+        ];
+
+        fieldMappings.forEach(({ input, error, id }) => {
+          const inputElement = fixture.debugElement.nativeElement.querySelector(
+            `[data-testid="${input}"]`
+          );
+          const errorElement = fixture.debugElement.nativeElement.querySelector(
+            `[data-testid="${error}"]`
+          );
+
+          expect(inputElement.getAttribute('aria-describedby')).toBe(id);
+          expect(inputElement.getAttribute('aria-invalid')).toBe('true');
+          expect(errorElement.getAttribute('id')).toBe(id);
+        });
+      });
+
+      it('should not show error messages or aria attributes for untouched fields', () => {
+        const firstNameInput = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-input"]'
+        );
+        const firstNameError = fixture.debugElement.nativeElement.querySelector(
+          '[data-testid="first-name-error"]'
+        );
+
+        // Field should not have aria-describedby when untouched, but aria-invalid should be false
+        expect(firstNameInput.getAttribute('aria-describedby')).toBeNull();
+        expect(firstNameInput.getAttribute('aria-invalid')).toBe('false');
+
+        // Error message should not be visible
+        expect(firstNameError).toBeNull();
+      });
+    });
   });
 });

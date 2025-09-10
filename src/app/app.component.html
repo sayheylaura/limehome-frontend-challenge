@@ -46,9 +46,19 @@
                 formControlName="firstName"
                 class="form__input"
                 data-testid="first-name-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('personalInfo.firstName')
+                    ? 'firstName-error'
+                    : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('personalInfo.firstName')"
               />
               @if (isFieldInvalid('personalInfo.firstName')) {
-              <p class="form__error" data-testid="first-name-error">
+              <p
+                class="form__error"
+                id="firstName-error"
+                data-testid="first-name-error"
+              >
                 {{ getFieldError("personalInfo.firstName") }}
               </p>
               }
@@ -61,9 +71,19 @@
                 formControlName="lastName"
                 class="form__input"
                 data-testid="last-name-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('personalInfo.lastName')
+                    ? 'lastName-error'
+                    : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('personalInfo.lastName')"
               />
               @if (isFieldInvalid('personalInfo.lastName')) {
-              <p class="form__error" data-testid="last-name-error">
+              <p
+                class="form__error"
+                id="lastName-error"
+                data-testid="last-name-error"
+              >
                 {{ getFieldError("personalInfo.lastName") }}
               </p>
               }
@@ -79,9 +99,13 @@
                 class="form__input"
                 placeholder="example@email.com"
                 data-testid="email-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('personalInfo.email') ? 'email-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('personalInfo.email')"
               />
               @if (isFieldInvalid('personalInfo.email')) {
-              <p class="form__error" data-testid="email-error">
+              <p class="form__error" id="email-error" data-testid="email-error">
                 {{ getFieldError("personalInfo.email") }}
               </p>
               }
@@ -97,9 +121,19 @@
                 class="form__input"
                 placeholder="+49 234 567 8900"
                 data-testid="phone-number-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('personalInfo.phoneNumber')
+                    ? 'phoneNumber-error'
+                    : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('personalInfo.phoneNumber')"
               />
               @if (isFieldInvalid('personalInfo.phoneNumber')) {
-              <p class="form__error" data-testid="phone-number-error">
+              <p
+                class="form__error"
+                id="phoneNumber-error"
+                data-testid="phone-number-error"
+              >
                 {{ getFieldError("personalInfo.phoneNumber") }}
               </p>
               }
@@ -147,9 +181,17 @@
                 formControlName="street"
                 class="form__input"
                 data-testid="street-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('address.street') ? 'street-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('address.street')"
               />
               @if (isFieldInvalid('address.street')) {
-              <p class="form__error" data-testid="street-error">
+              <p
+                class="form__error"
+                id="street-error"
+                data-testid="street-error"
+              >
                 {{ getFieldError("address.street") }}
               </p>
               }
@@ -163,9 +205,19 @@
                 class="form__input"
                 placeholder="123"
                 data-testid="house-number-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('address.houseNumber')
+                    ? 'houseNumber-error'
+                    : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('address.houseNumber')"
               />
               @if (isFieldInvalid('address.houseNumber')) {
-              <p class="form__error" data-testid="house-number-error">
+              <p
+                class="form__error"
+                id="houseNumber-error"
+                data-testid="house-number-error"
+              >
                 {{ getFieldError("address.houseNumber") }}
               </p>
               }
@@ -180,9 +232,13 @@
                 formControlName="city"
                 class="form__input"
                 data-testid="city-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('address.city') ? 'city-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('address.city')"
               />
               @if (isFieldInvalid('address.city')) {
-              <p class="form__error" data-testid="city-error">
+              <p class="form__error" id="city-error" data-testid="city-error">
                 {{ getFieldError("address.city") }}
               </p>
               }
@@ -196,9 +252,17 @@
                 class="form__input"
                 placeholder="12345 or 12345-6789"
                 data-testid="zip-code-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('address.zipCode') ? 'zipCode-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('address.zipCode')"
               />
               @if (isFieldInvalid('address.zipCode')) {
-              <p class="form__error" data-testid="zip-code-error">
+              <p
+                class="form__error"
+                id="zipCode-error"
+                data-testid="zip-code-error"
+              >
                 {{ getFieldError("address.zipCode") }}
               </p>
               }
@@ -211,9 +275,17 @@
                 formControlName="country"
                 class="form__input"
                 data-testid="country-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('address.country') ? 'country-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('address.country')"
               />
               @if (isFieldInvalid('address.country')) {
-              <p class="form__error" data-testid="country-error">
+              <p
+                class="form__error"
+                id="country-error"
+                data-testid="country-error"
+              >
                 {{ getFieldError("address.country") }}
               </p>
               }
@@ -264,9 +336,21 @@
                 class="form__input"
                 placeholder="1234 5678 9012 3456"
                 data-testid="credit-card-number-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('paymentDetails.creditCardNumber')
+                    ? 'creditCardNumber-error'
+                    : null
+                "
+                [attr.aria-invalid]="
+                  isFieldInvalid('paymentDetails.creditCardNumber')
+                "
               />
               @if (isFieldInvalid('paymentDetails.creditCardNumber')) {
-              <p class="form__error" data-testid="credit-card-number-error">
+              <p
+                class="form__error"
+                id="creditCardNumber-error"
+                data-testid="credit-card-number-error"
+              >
                 {{ getFieldError("paymentDetails.creditCardNumber") }}
               </p>
               }
@@ -280,9 +364,21 @@
                 class="form__input"
                 placeholder="MM/YY"
                 data-testid="expiry-date-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('paymentDetails.expiryDate')
+                    ? 'expiryDate-error'
+                    : null
+                "
+                [attr.aria-invalid]="
+                  isFieldInvalid('paymentDetails.expiryDate')
+                "
               />
               @if (isFieldInvalid('paymentDetails.expiryDate')) {
-              <p class="form__error" data-testid="expiry-date-error">
+              <p
+                class="form__error"
+                id="expiryDate-error"
+                data-testid="expiry-date-error"
+              >
                 {{ getFieldError("paymentDetails.expiryDate") }}
               </p>
               }
@@ -298,9 +394,13 @@
                 class="form__input"
                 placeholder="123"
                 data-testid="cvv-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('paymentDetails.cvv') ? 'cvv-error' : null
+                "
+                [attr.aria-invalid]="isFieldInvalid('paymentDetails.cvv')"
               />
               @if (isFieldInvalid('paymentDetails.cvv')) {
-              <p class="form__error" data-testid="cvv-error">
+              <p class="form__error" id="cvv-error" data-testid="cvv-error">
                 {{ getFieldError("paymentDetails.cvv") }}
               </p>
               }
@@ -315,9 +415,21 @@
                 formControlName="cardHolderName"
                 class="form__input"
                 data-testid="card-holder-name-input"
+                [attr.aria-describedby]="
+                  isFieldInvalid('paymentDetails.cardHolderName')
+                    ? 'cardHolderName-error'
+                    : null
+                "
+                [attr.aria-invalid]="
+                  isFieldInvalid('paymentDetails.cardHolderName')
+                "
               />
               @if (isFieldInvalid('paymentDetails.cardHolderName')) {
-              <p class="form__error" data-testid="card-holder-name-error">
+              <p
+                class="form__error"
+                id="cardHolderName-error"
+                data-testid="card-holder-name-error"
+              >
                 {{ getFieldError("paymentDetails.cardHolderName") }}
               </p>
               }
