@@ -1,11 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-  background: #f7f1e9;
-  font-family: 'sans-serif', 'Arial';
-  margin: 0;
-  padding: 0;
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
 }
 
-.hidden {
-  display: none;
+html {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  background-color: #f8f9fa;
+  font-family: "sans-serif", "Arial";
+  margin: 0;
+  padding: 0;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure proper mobile viewport */
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid rgb(17, 131, 119);
+  outline-offset: 2px;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Remove default input styles */
+input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }
