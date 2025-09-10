@@ -26,7 +26,7 @@ describe('AppComponent', () => {
       const compiled = fixture.nativeElement as HTMLElement;
       expect(
         compiled.querySelector('[data-testid="form-title"]')?.textContent
-      ).toContain('Your checkin data');
+      ).toContain('Your check-in details');
     });
 
     it('should initialize all accordions as expanded', () => {
@@ -536,7 +536,7 @@ describe('AppComponent', () => {
 
       const submitButton = form.querySelector('[data-testid="submit-button"]');
       expect(submitButton).toBeTruthy();
-      expect(submitButton.textContent).toBe('Save');
+      expect(submitButton.textContent.trim()).toBe('Save');
     });
   });
 });

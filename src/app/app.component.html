@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h2 data-testid="form-title">Your checkin data</h2>
+  <h1 class="form__title" data-testid="form-title">Your check-in details</h1>
   <form
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
@@ -332,7 +332,9 @@
       the back of the card, and the holder name.
     </span>
     <div>
-      <button type="submit" data-testid="submit-button">Save</button>
+      <button type="submit" class="submit-button" data-testid="submit-button">
+        Save
+      </button>
     </div>
   </form>
 </div>
