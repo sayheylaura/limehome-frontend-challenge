@@ -1,0 +1,58 @@
+<div class="wrapper">
+  <h2>Your checkin data</h2>
+  <form class="form">
+    <div class="accordion">
+      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
+        <span class="accordion__title">Personal information</span>
+      </h3>
+      <div class="accordion__content">
+        <div class="form__elements">
+          <input placeholder="First Name" class="input" />
+          <input placeholder="Last Name" class="input" />
+        </div>
+        <div class="form__elements">
+          <input placeholder="E-mail" class="input" />
+          <input placeholder="Phone number" class="input" />
+        </div>
+      </div>
+
+
+      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
+        <span class="accordion__title">Address</span>
+      </h3>
+      <div class="accordion__content">
+        <div class="form__elements">
+          <input placeholder="Street" class="input" />
+          <input placeholder="House Nr." class="input" />
+        </div>
+        <div class="form__elements">
+          <input placeholder="City" class="input" />
+          <input placeholder="Zip Code" class="input" />
+          <input placeholder="Country" class="input" />
+        </div>
+      </div>
+
+      <h3 class="accordion__header" (click)="onAccordionHeaderClick($event)">
+        <span class="accordion__title">Payment details</span>
+      </h3>
+      <div class="accordion__content">
+        <div class="form__elements">
+          <input placeholder="Credit Card Number" class="input" />
+          <input placeholder="Expiry Date" class="input" />
+        </div>
+        <div class="form__elements">
+          <input placeholder="CCV" class="input" />
+          <input placeholder="Card Holder Name" class="input" />
+        </div>
+      </div>
+    </div>
+
+    <span class="form__payment">
+      Enter your card details: its number, expiry date and, 3-digit number on the back of the card and the holder name.
+    </span>
+    <div>
+      <button>Save</button>
+    </div>
+  </form>
+
+</div>
